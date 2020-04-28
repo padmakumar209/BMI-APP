@@ -3,7 +3,7 @@ services:
   - docker
 
 before_install:
-  - docker build -t padmakumarnkg/bmi-app-client -f ./client/Dockerfile.dev ./Client
+  - docker build -t padmakumarnkg/bmi-app-client -f ./Client/Dockerfile.dev ./Client
 
 script:
   - docker run padmakumarnkg/bmi-app-client npm test -- --coverage
