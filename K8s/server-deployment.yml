@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bmi-app-server
+spec:
+  selector:
+    matchLabels:
+      app: bmi-app-server
+      tier: backend
+      track: stable
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: bmi-app-server
+        tier: backend
+        track: stable
+    spec:
+      containers:
+        - name: bmi-app-server
+          image: "padmakumarnkg/bmi-app-server"
+          ports:
+            - name: http
+              containerPort: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: bmi-app-server-service
+spec:
+    type: ClusterIP
+    selector:
+        app: bmi-app-server
+        tier: backend
+    ports:
+        - protocol: TCP
+          port: 5000
+          targetPort: http
